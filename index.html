@@ -620,60 +620,66 @@ SITE CONFIGURATION - Edit these values to customise your business details
 
                     <div class="contact-form-wrap">
                         <h3>Send us a message</h3>
-                        <form <input type="hidden" name="_replyto" value="hello@seekautocars.com.au">
- class="contact-form"
-      id="contact-form"
-      action="https://formspree.io/f/xpqjobjr"
-      method="POST">
+                        <form class="contact-form" id="contact-form" action="https://formspree.io/f/xpqjobjr" method="POST">
+  <!-- Optional: subject + redirect after submit -->
+  <input type="hidden" name="_subject" value="New lead from seekautocars.com.au" />
+  <input type="hidden" name="_next" value="https://seekautocars.com.au/#contact" />
 
-                           <div class="form-group">
-                                <label for="name">Name <span class="required">*</span></label>
-                                <input type="text" id="name" name="name" required autocomplete="name">
-                                <span class="form-error" id="name-error"></span>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="mobile">Mobile <span class="required">*</span></label>
-                                    <input type="tel" id="mobile" name="mobile" required autocomplete="tel">
-                                    <span class="form-error" id="mobile-error"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">Email <span class="required">*</span></label>
-                                    <input type="email" id="email" name="email" required autocomplete="email">
-                                    <span class="form-error" id="email-error"></span>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="service">What do you need? <span class="required">*</span></label>
-                                    <select id="service" name="service" required>
-                                        <option value="">Select an option</option>
-                                        <option value="buy">Buy a car</option>
-                                        <option value="sell">Sell my car</option>
-                                        <option value="finance">Car finance</option>
-                                        <option value="other">Something else</option>
-                                    </select>
-                                    <span class="form-error" id="service-error"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label for="budget">Budget (optional)</label>
-                                    <select id="budget" name="budget">
-                                        <option value="">Select range</option>
-                                        <option value="under-20k">Under $20,000</option>
-                                        <option value="20-40k">$20,000 – $40,000</option>
-                                        <option value="40-60k">$40,000 – $60,000</option>
-                                        <option value="60-80k">$60,000 – $80,000</option>
-                                        <option value="80k-plus">$80,000+</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="notes">Tell us more (optional)</label>
-                                <textarea id="notes" name="notes" rows="4" placeholder="e.g., Looking for a 2022+ RAV4 Hybrid, low km, any colour except white..."></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">Send Message</button>
-                            <p class="form-note">We'll respond within 2 hours during business hours.</p>
-                        </form>
+  <div class="form-group">
+    <label for="name">Name <span class="required">*</span></label>
+    <input type="text" id="name" name="name" required autocomplete="name" />
+    <span class="form-error" id="name-error"></span>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label for="mobile">Mobile <span class="required">*</span></label>
+      <input type="tel" id="mobile" name="mobile" required autocomplete="tel" />
+      <span class="form-error" id="mobile-error"></span>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email <span class="required">*</span></label>
+      <input type="email" id="email" name="email" required autocomplete="email" />
+      <span class="form-error" id="email-error"></span>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label for="service">What do you need? <span class="required">*</span></label>
+      <select id="service" name="service" required>
+        <option value="">Select an option</option>
+        <option value="buy">Buy a car</option>
+        <option value="sell">Sell my car</option>
+        <option value="finance">Car finance</option>
+        <option value="other">Something else</option>
+      </select>
+      <span class="form-error" id="service-error"></span>
+    </div>
+
+    <div class="form-group">
+      <label for="budget">Budget (optional)</label>
+      <select id="budget" name="budget">
+        <option value="">Select range</option>
+        <option value="under-20k">Under $20,000</option>
+        <option value="20-40k">$20,000 – $40,000</option>
+        <option value="40-60k">$40,000 – $60,000</option>
+        <option value="60-80k">$60,000 – $80,000</option>
+        <option value="80k-plus">$80,000+</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="notes">Tell us more (optional)</label>
+    <textarea id="notes" name="notes" rows="4" placeholder="e.g., Looking for a 2022+ RAV4 Hybrid, low km..."></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-primary btn-lg btn-block">Send Message</button>
+  <p class="form-note">We'll respond within 2 hours during business hours.</p>
+</form>
+
                         <div class="form-success" id="form-success" hidden>
                             <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
