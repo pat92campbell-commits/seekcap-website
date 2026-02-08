@@ -4,89 +4,505 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Car Finance | Seek Auto Cars</title>
-  <meta name="description" content="Car finance made simple. Fast pre-approvals, flexible options, and repayments that fit your budget." />
-  <link rel="stylesheet" href="/styles.css" />
+  <meta name="description" content="Car finance made simple. Get matched to a realistic finance option for your budget — fast approvals, clear repayments, and support from enquiry to settlement." 
+/>
+
+  <!-- If your main site already has a stylesheet, keep it -->
+  <!-- <link rel="stylesheet" href="/styles.css" /> -->
+
+  <style>
+    :root{
+      --bg: #0b1220;
+      --card: rgba(255,255,255,0.08);
+      --card2: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.12);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.72);
+      --muted2: rgba(255,255,255,0.60);
+      --accent: #1f5cff;   /* brand blue */
+      --accent2: #49b4ff;  /* lighter blue */
+      --shadow: 0 18px 50px rgba(0,0,0,0.35);
+      --radius: 18px;
+      --max: 1100px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--text);
+      background: radial-gradient(1200px 600px at 20% 0%, rgba(31,92,255,0.35), transparent 60%),
+                  radial-gradient(900px 500px at 80% 10%, rgba(73,180,255,0.22), transparent 60%),
+                  linear-gradient(180deg, #070b14, #0b1220 35%, #0b1220);
+    }
+    a{ color:inherit; text-decoration:none; }
+    .container{ width:100%; max-width: var(--max); margin:0 auto; padding: 0 18px; }
+
+    /* Top nav */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(8,12,22,0.65);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      padding: 14px 0;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+    .brand-mark{
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 12px 30px rgba(31,92,255,0.30);
+    }
+    .navlinks{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content:flex-end;
+    }
+    .navlinks a{
+      padding: 10px 10px;
+      border-radius: 12px;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .navlinks a:hover{ background: rgba(255,255,255,0.06); color: var(--text); }
+    .nav-cta{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
+    .phone{
+      display:none;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 12px;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      border: 0;
+      cursor: pointer;
+      font-weight: 800;
+      padding: 12px 16px;
+      border-radius: 14px;
+      color: white;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 18px 40px rgba(31,92,255,0.28);
+    }
+    .btn:hover{ transform: translateY(-1px); }
+    .btn:active{ transform: translateY(0px); }
+    .btn-secondary{
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--text);
+      box-shadow: none;
+    }
+
+    /* Hero */
+    .hero{
+      padding: 46px 0 26px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+    .hero-card{
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: var(--shadow);
+      padding: 26px;
+      overflow:hidden;
+      position: relative;
+    }
+    .hero-card:before{
+      content:"";
+      position:absolute;
+      inset:-80px -120px auto auto;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle at 30% 30%, rgba(73,180,255,0.35), transparent 60%);
+      transform: rotate(18deg);
+      pointer-events:none;
+    }
+    .badge{
+      display:inline-flex;
+      gap: 10px;
+      align-items:center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 12px;
+      color: rgba(255,255,255,0.85);
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.10);
+      width: fit-content;
+    }
+    .badge-dot{
+      width:8px;height:8px;border-radius:99px;
+      background: #41d19a;
+      box-shadow: 0 0 0 6px rgba(65,209,154,0.15);
+    }
+    h1{
+      margin: 14px 0 10px;
+      font-size: 44px;
+      line-height: 1.05;
+      letter-spacing: -1px;
+    }
+    .subhead{
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 58ch;
+    }
+    .hero-actions{
+      display:flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .trust-row{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+      color: var(--muted2);
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .pill svg{ opacity: 0.9; }
+
+    /* Right box */
+    .side-card{
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+    .side-title{
+      font-size: 16px;
+      font-weight: 900;
+      margin: 0 0 10px;
+      letter-spacing: -0.3px;
+    }
+    .side-list{
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display:grid;
+      gap: 10px;
+      color: var(--muted);
+      font-weight: 650;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .side-list li{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .tick{
+      width: 18px; height: 18px; border-radius: 6px;
+      background: linear-gradient(135deg, rgba(65,209,154,0.9), rgba(73,180,255,0.85));
+      margin-top: 2px;
+      flex: 0 0 auto;
+    }
+
+    /* Sections */
+    .section{
+      padding: 18px 0 34px;
+    }
+    .grid-3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .card{
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+      padding: 18px;
+    }
+    .card h3{
+      margin: 0 0 8px;
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: -0.2px;
+    }
+    .card p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .list{
+      margin: 10px 0 0;
+      padding: 0;
+      list-style:none;
+      display:grid;
+      gap: 10px;
+      color: var(--muted);
+      font-weight: 650;
+      font-size: 14px;
+    }
+    .list li{
+      padding: 12px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* CTA footer */
+    .cta{
+      padding: 30px 0 48px;
+    }
+    .cta-inner{
+      border-radius: calc(var(--radius) + 6px);
+      padding: 22px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: linear-gradient(135deg, rgba(31,92,255,0.22), rgba(73,180,255,0.10));
+      box-shadow: var(--shadow);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .cta-text h2{
+      margin:0 0 6px;
+      font-size: 22px;
+      letter-spacing: -0.4px;
+    }
+    .cta-text p{
+      margin:0;
+      color: var(--muted);
+      font-weight: 650;
+      font-size: 14px;
+      line-height: 1.5;
+      max-width: 70ch;
+    }
+    footer{
+      padding: 18px 0 40px;
+      color: rgba(255,255,255,0.55);
+      font-weight: 650;
+      font-size: 13px;
+    }
+
+    /* Responsive */
+    @media (max-width: 920px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      h1{ font-size: 38px; }
+      .grid-3{ grid-template-columns: 1fr; }
+      .split{ grid-template-columns: 1fr; }
+      .phone{ display:none; }
+    }
+    @media (min-width: 860px){
+      .phone{ display:inline-flex; }
+    }
+  </style>
 </head>
 
 <body>
+  <header class="topbar">
+    <div class="container">
+      <div class="nav">
+        <a class="brand" href="/#top" aria-label="Seek Auto Cars home">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>Seek Auto</span>
+        </a>
 
-<header class="site-header">
-  <div class="container">
-    <a class="logo" href="/">Seek Auto Cars</a>
-    <nav class="nav">
-      <a href="/">Home</a>
-      <a href="/finance.html">Finance</a>
-      <a href="/#contact">Contact</a>
-    </nav>
-  </div>
-</header>
+        <nav class="navlinks" aria-label="Primary navigation">
+          <a href="/#buy">Buy</a>
+          <a href="/#sell">Sell</a>
+          <a href="/finance.html" style="color: rgba(255,255,255,0.92); background: rgba(255,255,255,0.06);">Finance</a>
+          <a href="/#how-it-works">How It Works</a>
+          <a href="/#reviews">Reviews</a>
+          <a href="/#faq">FAQ</a>
+          <a href="/#contact">Contact</a>
+        </nav>
 
-<main class="container section">
+        <div class="nav-cta">
+          <a class="phone" href="tel:0414972260">📞 0414 972 260</a>
+          <a class="btn" href="/#contact">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </header>
 
-  <h1>Car Finance Made Simple</h1>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-card">
+            <div class="badge"><span class="badge-dot"></span> Finance approvals with clear repayments</div>
+            <h1>Car Finance Made Simple</h1>
+            <p class="subhead">
+              We help you secure car finance that fits your real budget — not just what looks good on paper.
+              Fast turnaround, plain-English explanations, and support from enquiry to settlement.
+            </p>
 
-  <p class="lead">
-    We help you secure car finance that fits your real budget — not just what looks good on paper.
-  </p>
+            <div class="hero-actions">
+              <a class="btn" href="/#contact">Get a Finance Quote</a>
+              <a class="btn btn-secondary" href="/#contact">Talk to a Specialist</a>
+            </div>
 
-  <section class="card">
-    <h2>What We Help With</h2>
+            <div class="trust-row">
+              <span class="pill">
+                <!-- check icon -->
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Fast response times
+              </span>
+              <span class="pill">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 7h7l-5.5 4 2.5 7-7-4.5L5 20l2.5-7L2 9h7l3-7z" stroke="currentColor" stroke-width="2" 
+stroke-linejoin="round"/></svg>
+                No confusing jargon
+              </span>
+              <span class="pill">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 21s8-4.5 8-10V6l-8-3-8 3v5c0 5.5 8 10 8 10z" stroke="currentColor" stroke-width="2" 
+stroke-linejoin="round"/></svg>
+                Transparent guidance
+              </span>
+            </div>
+          </div>
 
-    <ul>
-      <li>New and used car finance</li>
-      <li>Private sale purchases</li>
-      <li>Dealership purchases</li>
-      <li>Refinancing existing car loans</li>
-      <li>Self-employed and complex income scenarios</li>
-    </ul>
-  </section>
+          <aside class="side-card">
+            <p class="side-title">What we can help with</p>
+            <ul class="side-list">
+              <li><span class="tick"></span> New and used car finance</li>
+              <li><span class="tick"></span> Private sale purchases</li>
+              <li><span class="tick"></span> Dealership purchases</li>
+              <li><span class="tick"></span> Refinancing existing loans</li>
+              <li><span class="tick"></span> Self-employed & complex income</li>
+            </ul>
 
-  <section class="card">
-    <h2>How The Process Works</h2>
+            <div style="height:12px"></div>
 
-    <ol>
-      <li>You tell us what car you want and your budget</li>
-      <li>We confirm realistic finance options</li>
-      <li>You choose the option that suits you</li>
-      <li>We handle the paperwork and settlement</li>
-    </ol>
-  </section>
+            <a class="btn" href="/#contact" style="width:100%;">Get Finance Quote</a>
+            <div style="height:10px"></div>
+            <a class="btn btn-secondary" href="tel:0414972260" style="width:100%;">Call 0414 972 260</a>
 
-  <section class="card">
-    <h2>Why Use Seek Auto Cars</h2>
+            <p style="margin:12px 0 0; color: var(--muted2); font-size: 13px; line-height:1.5; font-weight:650;">
+              You’ll hear back quickly during business hours. No pressure — just clear options.
+            </p>
+          </aside>
+        </div>
+      </div>
+    </section>
 
-    <ul>
-      <li>Fast response times</li>
-      <li>Clear explanation of total loan cost</li>
-      <li>Support from enquiry to settlement</li>
-      <li>No confusing finance jargon</li>
-    </ul>
-  </section>
+    <section class="section">
+      <div class="container">
+        <div class="grid-3">
+          <div class="card">
+            <h3>Budget-first recommendations</h3>
+            <p>We start with what you can comfortably afford, then match options to suit — no surprises later.</p>
+          </div>
+          <div class="card">
+            <h3>Clear loan cost breakdown</h3>
+            <p>We explain repayments, fees, and total cost in plain English so you can choose confidently.</p>
+          </div>
+          <div class="card">
+            <h3>Support to settlement</h3>
+            <p>From enquiry and docs to approval and settlement — we guide the whole process end-to-end.</p>
+          </div>
+        </div>
 
-  <section class="card">
-    <h2>Ready To Get Started?</h2>
+        <div class="split">
+          <div class="card">
+            <h3>How the process works</h3>
+            <ul class="list">
+              <li><strong>1)</strong> Tell us the car you want and your budget.</li>
+              <li><strong>2)</strong> We confirm realistic finance options.</li>
+              <li><strong>3)</strong> You choose the option that suits you.</li>
+              <li><strong>4)</strong> We handle the paperwork and settlement.</li>
+            </ul>
+          </div>
 
-    <p>
-      Submit your details and we’ll contact you to discuss your options.
-    </p>
+          <div class="card">
+            <h3>Why use Seek Auto Cars</h3>
+            <ul class="list">
+              <li><strong>Fast</strong> response times during business hours.</li>
+              <li><strong>Transparent</strong> explanation of loan costs.</li>
+              <li><strong>Simple</strong> process — no finance jargon.</li>
+              <li><strong>Helpful</strong> support from start to finish.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <a class="btn btn-primary" href="/#contact">
-      Get Finance Quote
-    </a>
-  </section>
+    <section class="cta">
+      <div class="container">
+        <div class="cta-inner">
+          <div class="cta-text">
+            <h2>Ready to get started?</h2>
+            <p>Submit your details and we’ll contact you to discuss options that fit your budget.</p>
+          </div>
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <a class="btn" href="/#contact">Get a Finance Quote</a>
+            <a class="btn btn-secondary" href="tel:0414972260">Call 0414 972 260</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-</main>
+    <footer>
+      <div class="container">
+        © <span id="year"></span> Seek Auto Cars • Melbourne & Victoria
+      </div>
+    </footer>
+  </main>
 
-<footer class="site-footer">
-  <div class="container">
-    <p>© <span id="year"></span> Seek Auto Cars</p>
-  </div>
-</footer>
-
-<script>
-document.getElementById("year").textContent = new Date().getFullYear();
-</script>
-
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
 
