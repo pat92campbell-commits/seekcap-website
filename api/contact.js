@@ -1,37 +1,48 @@
-const { Resend } = require("resend");
+import { Resend } from "resend";
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    return res.status(500).json({ error: "Missing RESEND_API_KEY env var" });
+  }
+
   try {
-    const resend = new Resend(process.env.RESEND_API_KEY);
+    // If you're submitting as form-encoded, handle that too:
+    const data =
+      typeof req.body === "string" ? JSON.parse(req.body) : req.body;
 
-    const { name, mobile, email, service, budget, notes } = req.body || {};
+    const { name, mobile, email, service, budget, notes } = data || {};
 
-    await resend.emails.send({
-      // IMPORTANT:
-      // Use this for now unless you've verified seekautocars.com.au in Resend:
-      from: "Seek Auto <onboarding@resend.dev>",
+    const resend = new Resend(apiKey);
+
+    const result = await resend.emails.send({
+      from: "Seek Auto <onboarding@resend.dev>", // change later to your domain once verified
       to: ["hello@seekautocars.com.au"],
-      subject: `New Seek Auto Lead — ${name || "Unknown"}`,
-      reply_to: email || undefined,
-      html: `
-        <h2>New Lead Submitted</h2>
-        <p><b>Name:</b> ${name || ""}</p>
-        <p><b>Mobile:</b> ${mobile || ""}</p>
-        <p><b>Email:</b> ${email || ""}</p>
-        <p><b>Service:</b> ${service || ""}</p>
-        <p><b>Budget:</b> ${budget || ""}</p>
-        <p><b>Notes:</b> ${notes || ""}</p>
-      `,
+      reply_to: email,
+      subject: `New Seek Auto lead: ${name || "Unknown"}`,
+      text: `
+Name: ${name || ""}
+Mobile: ${mobile || ""}
+Email: ${email || ""}
+Service: ${service || ""}
+Budget: ${budget || ""}
+Message: ${notes || ""}
+      `.trim(),
     });
 
-    return res.status(200).json({ success: true });
+    // If Resend returns an error, surface it:
+    if (result.error) {
+      return res.status(500).json({ error: result.error });
+    }
+
+    return res.status(200).json({ ok: true, result });
   } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: "Email failed to send" });
+    return res.status(500).json({ error: err.message || "Unknown error" });
   }
-};
+}
+
  
